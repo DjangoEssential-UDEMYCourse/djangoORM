@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Chassi, Carro
+from .models import Chassi, Carro, Montadora
 
 
 @admin.register(Chassi)
@@ -10,9 +10,15 @@ class ChassiAdmin(admin.ModelAdmin):
     )
 
 
+@admin.register(Montadora)
+class MontadoraAdmin(admin.ModelAdmin):
+    list_display = ('nome',)
+
+
 @admin.register(Carro)
 class CarroAdmin(admin.ModelAdmin):
     list_display = (
+        'montadora',
         'modelo',
         'chassi',
         'preco',
