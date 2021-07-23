@@ -28,6 +28,10 @@ class Montadora(models.Model):
         return self.nome
 
 
+def set_default_motadora():
+    return Montadora.objects.get_or_create(nome="Padrão")[0] # retorna uma tupla (objeto, boolean)
+
+
 class Carro(models.Model):
     '''
     # OneToOneField
@@ -44,7 +48,7 @@ class Carro(models.Model):
     mesmo tempo.
     '''
     chassi = models.OneToOneField(Chassi, on_delete=models.CASCADE)
-    montadora = models.ForeignKey(Montadora, on_delete=models.CASCADE)
+    montadora = models.ForeignKey(Montadora, on_delete=models.SET(set_default_motadora))
     motoristas = models.ManyToManyField(get_user_model())
     modelo = models.CharField(_('Modelo'), max_length=30, help_text=_('Maximo 30 caracteres'))
     preco = models.DecimalField(_('Preço'), max_digits=7, decimal_places=2)
