@@ -22,4 +22,11 @@ class CarroAdmin(admin.ModelAdmin):
         'modelo',
         'chassi',
         'preco',
+        'get_motoristas'
     )
+
+    def get_motoristas(self, obj):
+        return ', '.join([m.username for m in obj.motoristas.all()])
+
+    get_motoristas.short_description = 'Motoristas'
+
